@@ -18,7 +18,9 @@ Plugins/*/Saved/
 # （由 Unreal 的 Generate Project Files 重新生成）
 # ============================================================
 .vs/
+.idea/
 *.sln
+*.sln.DotSettings.user
 *.suo
 *.opensdf
 *.sdf

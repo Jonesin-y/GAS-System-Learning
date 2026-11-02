@@ -3,11 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
 #include "AuraCharacterBase.generated.h"
 
+class UAttributeSet;
+class UAbilitySystemComponent;
+
 UCLASS()
-class AURA_API AAuraCharacterBase : public ACharacter
+class AURA_API AAuraCharacterBase : public ACharacter,public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -18,12 +22,17 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UPROPERTY()
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
+	
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UPROPERTY(EditAnywhere,Category = "Combat")
-	TObjectPtr<USkeletalMeshComponent> weapon;
+	
 
 	// Called to bind functionality to input
 
