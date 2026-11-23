@@ -41,3 +41,13 @@ ipch/
 Thumbs.db
 *.tmp
 *.bak
+
+# ---- source-only ignore ----
+Content/
+_tmp_effect_test.cpp
+_tmp_effect_test.rsp
+make_internship_cert.py
+*.i
+.commit_msgs/
+commit_source.ps1
+
