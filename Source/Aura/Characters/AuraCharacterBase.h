@@ -5,35 +5,39 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Character.h"
+#include "Interface/CombatInterface.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayAbility;
 class UAttributeSet;
 class UAbilitySystemComponent;
 
 UCLASS()
-class AURA_API AAuraCharacterBase : public ACharacter,public IAbilitySystemInterface
+class AURA_API AAuraCharacterBase : public ACharacter,public IAbilitySystemInterface,public ICombatInterface
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
 	AAuraCharacterBase();
-
+	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "AbilitySystem")
+	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "AbilitySystem")
+	TObjectPtr<UAttributeSet> AttributeSet;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-	UPROPERTY()
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-	UPROPERTY()
-	TObjectPtr<UAttributeSet> AttributeSet;
+	virtual void AddCharacterAbilities();
+	
+	virtual void InitAbilityInfo();
+	
+	
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly,Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> Abilities;
 	
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	
-
-	// Called to bind functionality to input
 
 };

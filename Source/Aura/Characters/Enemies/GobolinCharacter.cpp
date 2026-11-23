@@ -20,5 +20,5 @@ AGobolinCharacter::AGobolinCharacter()
  void AGobolinCharacter::UnHightLight()
  {
 	 Super::UnHightLight();
-	weapon->SetRenderCustomDepth(false);
+	 weapon->SetRenderCustomDepth(false);
  }

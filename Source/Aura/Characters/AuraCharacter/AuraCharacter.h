@@ -19,10 +19,13 @@ class AURA_API AAuraCharacter : public AAuraCharacterBase
 	GENERATED_BODY()
 public:
 	AAuraCharacter();
-	void PossessedBy(AController* NewController) override;
-	void OnRep_PlayerState() override;
-	void InitAbilityInfo();
-	
+	virtual void BeginPlay() override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
+	virtual void InitAbilityInfo()override;
+	virtual FVector GetWeaponSocketLoc() override;
+	UPROPERTY(EditAnywhere,Category = "WeaponSocket")
+	FName WeaponSocketTipName;
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	TObjectPtr<USkeletalMeshComponent> weapon;
 	UPROPERTY(EditAnywhere,Category = "Camera")
@@ -31,4 +34,6 @@ public:
 	TObjectPtr<USpringArmComponent> CameraBoom;
 	UPROPERTY(EditAnywhere,Category = "PlayerState")
 	TObjectPtr<AAuraPlayerState> AuraPlayerState;
+	
+	virtual int32 GetPlayerLevel()override;
 };

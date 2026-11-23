@@ -20,6 +20,9 @@ public:
 	virtual void HightLight() override;
 	virtual void UnHightLight() override;
 	//End EnemyInterface
+	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category = "Level")
+	int32 Level;
+	FORCEINLINE int32 GetPlayerLevel() override {return Level;}
 protected:
 	AEnemyCharacter();
 	virtual void BeginPlay() override;

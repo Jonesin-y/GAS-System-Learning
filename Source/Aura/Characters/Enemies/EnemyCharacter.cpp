@@ -5,11 +5,12 @@
 
 #include "AbilitySystemComponent.h"
 #include "DrawDebugHelpers.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "Components/CapsuleComponent.h"
 AEnemyCharacter::AEnemyCharacter()
 {
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
+	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<UAttributeSet>("AttributeSet");
@@ -18,6 +19,14 @@ void AEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	if (UAuraAbilitySystemComponent* AuraASC = Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent))
+	{
+		AuraASC->AbilityInfoSet();
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1,4,FColor::Blue,FString::Printf(TEXT("AuraASC doesn't exist")));
+	}
 }
 
 

@@ -4,6 +4,7 @@
 #include "AuraCharacterBase.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 
 // Sets default values
 AAuraCharacterBase::AAuraCharacterBase()
@@ -17,13 +18,27 @@ AAuraCharacterBase::AAuraCharacterBase()
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 {
 	return AbilitySystemComponent;
 }
+
+void AAuraCharacterBase::AddCharacterAbilities()
+{
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);
+	if (!HasAuthority())return;
+	AuraASC->AddCharacterAbilities(Abilities);
+}
+
+void AAuraCharacterBase::InitAbilityInfo()
+{
+	AbilitySystemComponent->InitAbilityActorInfo(this,this);
+	
+	
+}
+
 
 
 // Called every frame
