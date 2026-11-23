@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "UI/AuraUserWidget.h"
+#include "UI/Widget/AuraUserWidget.h"
+
+#include "UI/WidgetController/AuraWidgetController.h"
 
 void UAuraUserWidget::SetWidgetController(UObject* widget_controller)
 {
-	WidgetController = widget_controller;
+	WidgetController = Cast<UAuraWidgetController>(widget_controller);
 	WidgetControllerSet();
 }
 
-void UAuraUserWidget::WidgetControllerSet()
-{
-}
+
